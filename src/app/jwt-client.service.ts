@@ -11,13 +11,13 @@ export class JwtClientService {
 
 
   public generateToken(request) {
-    return this.httpClient.post<string>("http://localhost:9191/authenticate", request, {  responseType: 'text' as 'json' });
+    return this.httpClient.post<string>("http://localhost:8080/authenticate", request, {  responseType: 'text' as 'json' });
   }
 
 
   public welcome(token) {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.httpClient.get<string>("http://localhost:9191/", {headers, responseType: 'text' as 'json' });
+    return this.httpClient.get<string>("http://localhost:8080/", {headers, responseType: 'text' as 'json' });
   }
 }
