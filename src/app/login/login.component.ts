@@ -18,16 +18,17 @@ export class LoginComponent implements OnInit {
   constructor(private service: JwtClientService, private route: Router) { }
 
   ngOnInit() {
+    localStorage.removeItem('id_token')
   }
 
-  logar(frm: NgForm){
+  logar(frm: NgForm){    
     this.getAccessToken(this.Login)    
   }
 
   
   public getAccessToken(authRequest){
     let resp=this.service.generateToken(authRequest);
-    resp.subscribe(data=>this.accessApi(data));
+    resp.subscribe(data=>{this.accessApi(data),  localStorage.setItem('id_token', data)});   
   }
     
     

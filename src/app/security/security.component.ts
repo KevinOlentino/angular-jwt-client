@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { throwError } from 'rxjs';
 import { JwtClientService } from '../jwt-client.service';
-import { Login } from '../Login';
 
 @Component({
   selector: 'app-security',
@@ -8,24 +9,19 @@ import { Login } from '../Login';
 })
 export class SecurityComponent implements OnInit {
 
-  authRequest: Login = {
-    usuario: "fulano",
-    senha: "senha"
-  };
-
   response: any;
+  token = localStorage.getItem('id_token')
 
-  constructor(private service: JwtClientService) { }
+  constructor(private service: JwtClientService, private route: Router) {        
+    if(!this.token){   
+        route.navigate(['\login'])
+        throw "Usuario não logado"
+    }
+   }
 
-  ngOnInit() {
-    this.getAccessToken(this.authRequest);
+  ngOnInit() { 
+    this.accessApi(this.token)
   }
-
-  public getAccessToken(authRequest) {
-    let resp = this.service.generateToken(authRequest);
-    resp.subscribe(data => this.accessApi(data));
-  }
-
 
   public accessApi(token) {
     let resp = this.service.welcome(token);

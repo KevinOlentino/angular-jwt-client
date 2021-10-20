@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { ApplicationModule, ApplicationRef, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SecurityComponent } from './security/security.component';
@@ -25,4 +25,7 @@ import { RouterModule } from '@angular/router';
   providers: [JwtClientService],
   bootstrap: [AppComponent]
 })
+
+
+
 export class AppModule { }
